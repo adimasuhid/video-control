@@ -35,19 +35,23 @@ io.configure(function () {
 
 
 io.sockets.on('connection', function (socket) {
-    // kept for reference
-	socket.on('setPseudo', function (data) {
-		socket.set('pseudo', data);
-	});
-	socket.on('message', function (message) {
-		socket.get('pseudo', function (error, name) {
-			var data = { 'message' : message, pseudo : name };
-			socket.broadcast.emit('message', data);
-			console.log("user " + name + " send this : " + message);
-		})
-	});
+    socket.on('rewind', function(){
+        socket.broadcast.emit('rewind');
+    });
 
-    socket.on('rewind', function(setTime){
-        socket.broadcast.emit('rewind', setTime);
+    socket.on('pause', function(){
+        socket.broadcast.emit('pause');
+    });
+
+    socket.on('play', function(){
+        socket.broadcast.emit('play');
+    });
+
+    socket.on('reset', function(){
+        socket.broadcast.emit('reset');
+    });
+
+    socket.on('fullscreen', function(){
+        socket.broadcast.emit('fullscreen');
     });
 });

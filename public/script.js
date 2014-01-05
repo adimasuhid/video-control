@@ -1,41 +1,46 @@
 var socket = io.connect();
 var player = videojs('example_video_1');
+var fullscreen = false;
 
-player.ready(function(){
-    this.play();
-});
-
-function addMessage(msg, pseudo) {
-	$("#chatEntries").append('<div class="message"><p>' + pseudo + ' : ' + msg + '</p></div>');
-}
-function sentMessage() {
-	if ($('#messageInput').val() != "")
-	{
-		socket.emit('message', $('#messageInput').val());
-		addMessage($('#messageInput').val(), "Me", new Date().toISOString(), true);
-		$('#messageInput').val('');
-	}
-}
-function setPseudo() {
-	if ($("#pseudoInput").val() != "")
-	{
-		socket.emit('setPseudo', $("#pseudoInput").val());
-		$('#chatControls').show();
-		$('#pseudoInput').hide();
-		$('#pseudoSet').hide();
-	}
-}
 socket.on('message', function(data) {
 	addMessage(data['message'], data['pseudo']);
 });
 
-socket.on('rewind', function(setTime){
-    setCurrentTime(setTime);
+socket.on('rewind', function(){
+    setCurrentTime(player.currentTime() - 5);
 });
+
+socket.on('pause', function(){
+    player.pause();
+});
+
+socket.on('play', function(){
+    player.play();
+});
+
+socket.on('reset', function(){
+    setCurrentTime(0);
+    player.pause();
+});
+
+socket.on('fullscreen', function(){
+    toggleFullScreen();
+});
+
+function toggleFullScreen(){
+    if (fullscreen){
+        player.cancelFullScreen()
+        fullscreen = false;
+        console.log(fullscreen);
+    } else {
+        player.requestFullScreen();
+        fullscreen = true;
+        console.log(fullscreen);
+    }
+}
 
 function setCurrentTime(setTime){
     player.currentTime(setTime);
-    console.log("lalala");
 }
 
 function rewind(seconds) {
@@ -46,8 +51,17 @@ function rewind(seconds) {
     setCurrentTime(setTime);
 }
 
-
+function toggleControlBarDisplay(){
+    if (fullscreen) {
+        $(".vjs-control-bar").css("display", "none");
+    } else {
+        $(".vjs-control-bar").css("display", "block");
+    }
+}
 
 $(function(){
-    $("#moveBack5").on("click", rewind);
+    player.on("fullscreenchange", function(){
+        fullscreen = !fullscreen;
+        toggleControlBarDisplay();
+    });
 });

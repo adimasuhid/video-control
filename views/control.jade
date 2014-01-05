@@ -6,9 +6,14 @@ html
     script(src="/socket.io/socket.io.js")
     script(src="//vjs.zencdn.net/4.2/video.js")
     link(href="//vjs.zencdn.net/4.2/video-js.css" rel="stylesheet")
+    link(href="css/application.css" rel="stylesheet")
   body
     div.container
       header
       h1 Video Control Experiment
-    button#moveBack5 Move Back 5 Seconds
+    #reset
+    #moveBack5
+    #pause
+    #play
+    <!--button#toggle-fullscreen-->
     script(src="control-script.js")

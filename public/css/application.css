@@ -1,0 +1,34 @@
+#reset {
+    width: 113px;
+    height: 112px;
+    background-image: url("../images/controls.png");
+    background-position: -121px 0px;
+    display: inline-block;
+    margin: 5px;
+}
+
+#moveBack5{
+    width: 113px;
+    height: 112px;
+    background-image: url("../images/controls.png");
+    background-position: -487px 0px;
+    display: inline-block;
+    margin: 5px;
+}
+
+#pause{
+    width: 113px;
+    height: 112px;
+    background-image: url("../images/controls.png");
+    display: inline-block;
+    margin: 5px;
+}
+
+#play{
+    width: 113px;
+    height: 112px;
+    background-image: url("../images/controls.png");
+    background-position: -244px 0px;
+    display: inline-block;
+    margin: 5px;
+}
