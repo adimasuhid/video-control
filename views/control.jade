@@ -1,0 +1,14 @@
+doctype 5
+html
+  head
+    title Chat dude!
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')
+    script(src="/socket.io/socket.io.js")
+    script(src="//vjs.zencdn.net/4.2/video.js")
+    link(href="//vjs.zencdn.net/4.2/video-js.css" rel="stylesheet")
+  body
+    div.container
+      header
+      h1 Video Control Experiment
+    button#moveBack5 Move Back 5 Seconds
+    script(src="control-script.js")
